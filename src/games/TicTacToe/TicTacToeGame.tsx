@@ -89,10 +89,15 @@ const TicTacToeGame = ({ themeColor }: { themeColor: string }) => {
   const handleWin = (gameWinner: Player | "tie", line: number[] | null) => {
     setWinner(gameWinner);
     setWinLine(line);
-    setScores((prev) => ({
-      ...prev,
-      [gameWinner === "tie" ? "ties" : gameWinner]: prev[gameWinner === "tie" ? "ties" : gameWinner] + 1,
-    }));
+    setScores((prev) => {
+      if (gameWinner === "tie") {
+        return { ...prev, ties: prev.ties + 1 };
+      }
+      if (gameWinner === "X" || gameWinner === "O") {
+        return { ...prev, [gameWinner]: prev[gameWinner] + 1 };
+      }
+      return prev;
+    });
     setTimeout(() => setGameState("gameOver"), 1000);
   };
 
@@ -113,13 +118,15 @@ const TicTacToeGame = ({ themeColor }: { themeColor: string }) => {
       const nextPlayer = currentPlayer === "X" ? "O" : "X";
       setCurrentPlayer(nextPlayer);
 
-      if (gameMode === 'computer' && nextPlayer === "O") {
+      if (gameMode === "computer" && nextPlayer === "O") {
         setIsThinking(true);
         setTimeout(() => {
           const aiMove = getBestMove(newBoard);
           if (aiMove !== -1) {
-            newBoard[aiMove] = "O";
-            setBoard(newBoard);
+            const aiBoard = [...newBoard];
+            aiBoard[aiMove] = "O";
+            setBoard(aiBoard);
+
             const aiResult = checkWinner(newBoard);
             if (aiResult.winner) handleWin(aiResult.winner, aiResult.line);
             else setCurrentPlayer("X");

@@ -18,10 +18,13 @@ export const checkWinner = (board: Player[]): GameResult => {
       return { winner: board[a], line };
     }
   }
+  if (!board.includes(null)) {
+    return { winner: "tie", line: null };
+  }
   return { winner: null, line: null };
 };
 
-export const minimax = (board: Player[], depth: number, isMaximizing: boolean): numebr => {
+export const minimax = (board: Player[], depth: number, isMaximizing: boolean): number => {
   const { winner } = checkWinner(board);
 
   if (winner === "O") return 10 - depth;
@@ -38,6 +41,7 @@ export const minimax = (board: Player[], depth: number, isMaximizing: boolean): 
         bestScore = Math.max(score, bestScore);
       }
     }
+    return bestScore;
   } else {
     let bestScore = Infinity;
     for (let i = 0; i < 9; i++) {
