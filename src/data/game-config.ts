@@ -17,7 +17,7 @@ export const games: gamesProp[] = [
     title: "Tic Tac To",
     description: "deskripsi tic-tac-to",
     icon: Grid3X3,
-    color: "bg-emarld-500",
+    color: "bg-emerald-500",
     themeColor: "#f59e0b",
     category: "Strategy" as const,
   },

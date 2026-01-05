@@ -2,9 +2,11 @@ import { useState } from "react";
 import "./App.css";
 import { type GameType, type Category } from "./types";
 import { Button } from "./components/ui/button";
-import { games } from "./data/dataGame";
+import { games } from "./data/game-config";
 import { Card, CardDescription, CardTitle } from "./components/ui/card";
-import { Play } from "lucide-react";
+import { ArrowLeft, Play } from "lucide-react";
+import Puzzle2048Game from "./components/Puzzle2048Game";
+import TicTacToeGame from "./components/TicTacToe/TicTacToeGame";
 
 const categories: Category[] = ["All", "Arcade", "Puzzle", "Strategy", "Action"];
 
@@ -13,6 +15,35 @@ function App() {
   const [selectedCategory, setselectedCategory] = useState<Category>("All");
 
   const filteredGames = selectedCategory === "All" ? games : games.filter((game) => game.category === selectedCategory);
+
+  const renderGame = () => {
+    const gameData = games.find((g) => g.id === currentGame);
+    const commonProps = {
+      onBack: () => setCurrentGame("menu"),
+      themeColor: gameData ? gameData.themeColor :"#000000",
+    }
+    switch (currentGame) {
+      case "2048":
+        return <Puzzle2048Game {...commonProps }/>
+      case "tic-tac-to":
+        return <TicTacToeGame {...commonProps }/>
+      default:
+        return null
+    }
+  };
+
+  if (currentGame !== "menu") {
+    return (
+      <div>
+        <Button variant="outline" size="sm" onClick={() => setCurrentGame('menu')}
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          Back To Home
+        </Button>
+        {renderGame()}
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen w-full bg-white">

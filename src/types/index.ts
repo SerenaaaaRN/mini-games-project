@@ -14,3 +14,4 @@ export type gamesProp = {
   category: string;
   isNew?: boolean;
 };
+
