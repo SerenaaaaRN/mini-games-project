@@ -1,5 +1,8 @@
 import type { GameMode, GameState, Player, Score } from "@/types/typeTicTac";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { GameMenu } from "./GameMenu";
+import { GameOver } from "./GameOver";
+import { checkWinner, getBestMove } from "./gameUtils";
 
 const CANVAS_SIZE = 600;
 const GRID_SIZE = 200;
@@ -83,7 +86,7 @@ const TicTacToeGame = ({ themeColor }: { themeColor: string }) => {
     drawBoard();
   }, [drawBoard]);
 
-  const handelWin = (gameWinner: Player | "tie", line: number[] | null) => {
+  const handleWin = (gameWinner: Player | "tie", line: number[] | null) => {
     setWinner(gameWinner);
     setWinLine(line);
     setScores((prev) => ({
@@ -110,7 +113,7 @@ const TicTacToeGame = ({ themeColor }: { themeColor: string }) => {
       const nextPlayer = currentPlayer === "X" ? "O" : "X";
       setCurrentPlayer(nextPlayer);
 
-      if (gameMode === "ai" && nextPlayer === "O") {
+      if (gameMode === 'computer' && nextPlayer === "O") {
         setIsThinking(true);
         setTimeout(() => {
           const aiMove = getBestMove(newBoard);
@@ -137,7 +140,7 @@ const TicTacToeGame = ({ themeColor }: { themeColor: string }) => {
   };
 
   const handleCanvasClick = (e: React.MouseEvent) => {
-    if (gameState !== "playing" || (gameMode === "ai" && currentPlayer === "O")) return;
+    if (gameState !== "playing" || (gameMode === "computer" && currentPlayer === "O")) return;
     const rect = canvasRef.current?.getBoundingClientRect();
     if (!rect) return;
     const col = Math.floor((e.clientX - rect.left) / (rect.width / 3));
@@ -146,10 +149,40 @@ const TicTacToeGame = ({ themeColor }: { themeColor: string }) => {
   };
 
   return (
-    <div>
-      <div>
-        <canvas>{}</canvas>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white p-8 ">
+      <div className="relative">
+        <canvas
+          ref={canvasRef}
+          width={CANVAS_SIZE}
+          height={CANVAS_SIZE}
+          className="border border-gray-200 rounded-lg shadow-sm cursor-pointer max-w-full h-auto"
+          onClick={handleCanvasClick}
+        />
+        {gameState === "menu" && (
+          <GameMenu
+            themeColor={themeColor}
+            scores={scores}
+            onStart={(mode) => {
+              setGameMode(mode);
+              resetGame();
+            }}
+          />
+        )}
+        {gameState === "gameOver" && winner && (
+          <GameOver
+            winner={winner}
+            gameMode={gameMode}
+            scores={scores}
+            themeColor={themeColor}
+            onReset={resetGame}
+            onMenu={() => setGameState("menu")}
+          />
+        )}
       </div>
+
+      <p className="mt-6 text-xs text-gray-500">
+        {gameState === "playing" ? (isThinking ? "AI is thinking..." : `${currentPlayer} turn`) : "AI MINI Game"}
+      </p>
     </div>
   );
 };
