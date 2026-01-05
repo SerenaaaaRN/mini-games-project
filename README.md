@@ -2,4 +2,4 @@
 
 MINI GAMES ARCADE
 
-![SS Project](public/pict-phase-1.png)
+![SS Project](public/pict-phase-2.png)

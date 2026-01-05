@@ -1,12 +1,16 @@
 import { useState } from "react";
 import "./App.css";
-import { type GameType, type Category } from "./types";
+import { type Category, type GameType } from "./types";
 import { Button } from "./components/ui/button";
-import { games } from "./data/game-config";
+import { games } from "./data/listGames";
 import { Card, CardDescription, CardTitle } from "./components/ui/card";
 import { ArrowLeft, Play } from "lucide-react";
-import Puzzle2048Game from "./components/Puzzle2048Game";
-import TicTacToeGame from "./components/TicTacToe/TicTacToeGame";
+import TicTacToeGame from "./games/TicTacToe/TicTacToeGame";
+import Puzzle2048Game from "./games/Puzzle2048Game";
+import MemoryMatch from "./games/MemoryMatch";
+import Triangle from "./games/Triangle";
+import Snake from "./games/Snake";
+import Pong from "./games/Pong";
 
 const categories: Category[] = ["All", "Arcade", "Puzzle", "Strategy", "Action"];
 
@@ -20,23 +24,30 @@ function App() {
     const gameData = games.find((g) => g.id === currentGame);
     const commonProps = {
       onBack: () => setCurrentGame("menu"),
-      themeColor: gameData ? gameData.themeColor :"#000000",
-    }
+      themeColor: gameData ? gameData.themeColor : "#000000",
+    };
     switch (currentGame) {
-      case "2048":
-        return <Puzzle2048Game {...commonProps }/>
       case "tic-tac-to":
-        return <TicTacToeGame {...commonProps }/>
+        return <TicTacToeGame {...commonProps} />;
+      case "2048":
+        return <Puzzle2048Game {...commonProps} />;
+      case "memory-match":
+        return <MemoryMatch {...commonProps} />;
+      case "flappy":
+        return <Triangle />;
+      case "snake":
+        return <Snake {...commonProps} />;
+      case "pong":
+        return <Pong />;
       default:
-        return null
+        return null;
     }
   };
 
   if (currentGame !== "menu") {
     return (
       <div>
-        <Button variant="outline" size="sm" onClick={() => setCurrentGame('menu')}
-        >
+        <Button variant="outline" size="sm" onClick={() => setCurrentGame("menu")}>
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back To Home
         </Button>
@@ -70,7 +81,7 @@ function App() {
           {categories.map((category) => (
             <Button
               key={category}
-              variant={"ghost"}
+              variant={selectedCategory === category ? "default" : "ghost"}
               onClick={() => setselectedCategory(category)}
               className={`px-4 py-2 text-sm font-medium rounded-lg transition-all`}
             >
@@ -86,9 +97,17 @@ function App() {
               className="relative hover:border-gray-500 transition-all duration-200 cursor-pointer hover:shadow-lg"
               onClick={() => setCurrentGame(game.id)}
             >
-              {game.isNew && (
-                <div className="absolute top-3 right-3 bg-black text-white text-xs font-medium px-2 py-1 rounded-full z-10">
-                  NEW
+              {game.status && (
+                <div
+                  className={`absolute top-3 right-3 text-xs font-medium px-2 py-1 rounded-full z-10 ${
+                    game.status === "maintance"
+                      ? "bg-red-100 text-red-600"
+                      : game.status === "soon"
+                      ? "bg-black text-white"
+                      : "bg-green-100 text-green-600"
+                  }`}
+                >
+                  {game.status === "maintance" ? "Under Maintenance" : game.status === "soon" ? "Coming Soon" : "Ready"}
                 </div>
               )}
 
