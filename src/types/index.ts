@@ -1,6 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 
-export type GameType = "menu" | "2048" | "tic-tac-to" | "memory-match" | "flappy" | "snake" | "pong";
+export type GameType = "menu" | "2048" | "tic-tac-to" | "memory-match" | "flappy" | "snake" | "pong" | "typing-speed";
 
 export type Category = "All" | "Arcade" | "Puzzle" | "Strategy" | "Action";
 
@@ -19,3 +19,10 @@ export interface themeGame {
   onBack?: () => void;
   themeColor?: string;
 }
+
+export type GameCardProps = {
+  id: number;
+  symbol: string;
+  isFlipped: boolean;
+  isMatched: boolean;
+};

@@ -7,10 +7,11 @@ import { Card, CardDescription, CardTitle } from "./components/ui/card";
 import { ArrowLeft, Play } from "lucide-react";
 import TicTacToeGame from "./games/TicTacToe/TicTacToeGame";
 import Puzzle2048Game from "./games/Puzzle2048Game";
-import MemoryMatch from "./games/MemoryMatch";
-import Triangle from "./games/Triangle";
-import Snake from "./games/Snake";
-import Pong from "./games/Pong";
+import MemoryMatchGame from "./games/MemoryMatchGame";
+import TriangleGame from "./games/TriangleGame";
+import SnakeGame from "./games/SnakeGame";
+import PongGame from "./games/PongGame";
+import TypingSpeedGame from "./games/TypingSpeedGame";
 
 const categories: Category[] = ["All", "Arcade", "Puzzle", "Strategy", "Action"];
 
@@ -29,16 +30,18 @@ function App() {
     switch (currentGame) {
       case "tic-tac-to":
         return <TicTacToeGame {...commonProps} />;
-      case "2048":
-        return <Puzzle2048Game {...commonProps} />;
-      case "memory-match":
-        return <MemoryMatch {...commonProps} />;
-      case "flappy":
-        return <Triangle />;
       case "snake":
-        return <Snake {...commonProps} />;
+        return <SnakeGame {...commonProps} />;
+      case "memory-match":
+        return <MemoryMatchGame {...commonProps} />;
+      case "typing-speed":
+        return <TypingSpeedGame />;
+      case "2048":
+        return <Puzzle2048Game />;
+      case "flappy":
+        return <TriangleGame />;
       case "pong":
-        return <Pong />;
+        return <PongGame />;
       default:
         return null;
     }

@@ -1,5 +1,5 @@
 import type { gamesProp } from "@/types";
-import { Brain, Grid3X3, Minus, Route, Triangle } from "lucide-react";
+import { Brain, Grid3X3, Keyboard, Minus, Route, Triangle } from "lucide-react";
 
 export const games: gamesProp[] = [
   {
@@ -15,7 +15,7 @@ export const games: gamesProp[] = [
   {
     id: "snake",
     title: "Snake",
-    description: "deskripsi for games",
+    description: "A modern, minimalistic take on the classic",
     icon: Route,
     color: "bg-green-500",
     themeColor: "#22c55e",
@@ -25,24 +25,33 @@ export const games: gamesProp[] = [
   {
     id: "memory-match",
     title: "Memory Match",
-    description: "deskripsi for games",
+    description: "Match pairs of cards with memory",
     icon: Brain,
     color: "bg-pink-500",
     themeColor: "#ec4899",
     category: "Puzzle",
-    status: "soon",
+    status: "maintance",
   },
   {
     id: "2048",
     title: "2048",
-    description: "description for games",
+    description: "Slide numbered tiles to reach 2048 - addictive puzzle challenge!",
     icon: Grid3X3,
     color: "bg-amber-500",
     themeColor: "#f59e0b",
     category: "Puzzle",
     status: "soon",
   },
-
+  {
+    id: "typing-speed",
+    title: "Typing Speed",
+    description: "Test your typing speed and accuracy with timed challenges!",
+    icon: Keyboard,
+    color: "bg-teal-500",
+    themeColor: "#14b8a6",
+    category: "Action",
+    status: "soon",
+  },
   {
     id: "flappy",
     title: "Triangle",
