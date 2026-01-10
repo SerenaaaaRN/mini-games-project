@@ -30,7 +30,7 @@ export const games: gamesProp[] = [
     color: "bg-pink-500",
     themeColor: "#ec4899",
     category: "Puzzle",
-    status: "maintance",
+    status: "ready",
   },
   {
     id: "2048",

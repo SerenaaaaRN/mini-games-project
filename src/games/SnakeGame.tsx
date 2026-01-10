@@ -16,7 +16,7 @@ const Snake = ({ onBack, themeColor = "#22c55e" }: themeGame) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [snake, setSnake] = useState<Position[]>(INITIAL_SNAKE);
   const [direction, setDirection] = useState<Position>(INITIAL_DIRECTION);
-  const [food, setFood] = useState<Position>({ x: 15, y: 15 });
+  const [food, setFood] = useState<Position>({ x: 5, y: 5 });
   const [score, setScore] = useState(0);
   const [gameRunning, setGameRunning] = useState(false);
   const [gameOver, setGameOver] = useState(false);
