@@ -2,13 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import type { themeGame, GameCardProps } from "@/types";
 import { ArrowLeft, Clock, Play, RotateCcw, Target, Trophy } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 
-type Dificult = "easy" | "medium" | "hard";
+type Difficulty = "easy" | "medium" | "hard";
 
 const CARD_SYMBOLS = ["🎮", "🎯", "🎲", "🎪", "🎨", "🎭", "🎸", "🎺", "🎻", "🎹", "🎤", "🎧", "🎬", "🎭", "🎨", "🎯"];
 
-const getDifficulty = (diff: Dificult) => {
+const getDifficulty = (diff: Difficulty) => {
   switch (diff) {
     case "easy":
       return {
@@ -34,23 +34,22 @@ const getDifficulty = (diff: Dificult) => {
   }
 };
 
+const createInitialCards = (difficulty: Difficulty): GameCardProps[] => {
+  const { pairs } = getDifficulty(difficulty);
+  const selectedSymbol = CARD_SYMBOLS.slice(0, pairs);
+  return [...selectedSymbol, ...selectedSymbol]
+    .sort(() => Math.random() - 0.5)
+    .map((symbol, index) => ({
+      id: index,
+      symbol,
+      isFlipped: false,
+      isMatched: false,
+    }));
+};
+
 const MemoryMatch = ({ onBack }: themeGame) => {
-  const [difficult, setDifficulty] = useState<Dificult>("medium");
-
-  // Lazy initialization - hanya run sekali saat mount
-  const [cards, setCards] = useState<GameCardProps[]>(() => {
-    const { pairs } = getDifficulty(difficult);
-    const selectedSymbol = CARD_SYMBOLS.slice(0, pairs);
-    return [...selectedSymbol, ...selectedSymbol]
-      .sort(() => Math.random() - 0.5)
-      .map((symbol, index) => ({
-        id: index,
-        symbol,
-        isFlipped: false,
-        isMatched: false,
-      }));
-  });
-
+  const [difficulty, setDifficulty] = useState<Difficulty>("medium");
+  const [cards, setCards] = useState<GameCardProps[]>(() => createInitialCards(difficulty));
   const [flippedCards, setFlippedCards] = useState<number[]>([]);
   const [matchedPairs, setMatchedPairs] = useState(0);
   const [moves, setMoves] = useState(0);
@@ -60,20 +59,13 @@ const MemoryMatch = ({ onBack }: themeGame) => {
   const [showStartModal, setShowStartModal] = useState(true);
   const [showEndModal, setShowEndModal] = useState(false);
 
-  // Initialize game - dipanggil manual, bukan di useEffect
-  const initializeGame = useCallback(() => {
-    const { pairs } = getDifficulty(difficult);
-    const selectedSymbol = CARD_SYMBOLS.slice(0, pairs);
-    const gameCard = [...selectedSymbol, ...selectedSymbol]
-      .sort(() => Math.random() - 0.5)
-      .map((symbol, index) => ({
-        id: index,
-        symbol,
-        isFlipped: false,
-        isMatched: false,
-      }));
+  // useRef untuk track previous difficulty
+  const prevDifficultyRef = useRef(difficulty);
 
-    setCards(gameCard);
+  // Initialize game - dipanggil manual saja
+  const initializeGame = useCallback(() => {
+    const newCards = createInitialCards(difficulty);
+    setCards(newCards);
     setFlippedCards([]);
     setMatchedPairs(0);
     setMoves(0);
@@ -81,69 +73,86 @@ const MemoryMatch = ({ onBack }: themeGame) => {
     setGameStarted(false);
     setGameWon(false);
     setShowEndModal(false);
-  }, [difficult]);
+  }, [difficulty]);
 
+  // Handle difficulty change - hanya re-init saat difficulty berubah DAN modal ditutup
   useEffect(() => {
-    if (!showStartModal) {
+    if (prevDifficultyRef.current !== difficulty && !showStartModal) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       initializeGame();
     }
-  }, [difficult, showStartModal, initializeGame]);
+    prevDifficultyRef.current = difficulty;
+  }, [difficulty, showStartModal, initializeGame]);
 
-  // Timer effect
+  // Timer effect - Fix NodeJS.Timeout type
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
     if (gameStarted && !gameWon) {
       interval = setInterval(() => {
         setTimeElapsed((prev) => prev + 1);
       }, 1000);
     }
-    return () => clearInterval(interval);
+    return () => {
+      if (interval) clearInterval(interval);
+    };
   }, [gameStarted, gameWon]);
 
-  // Check win condition
-  useEffect(() => {
-    if (matchedPairs > 0 && matchedPairs === getDifficulty(difficult).pairs) {
-      setGameWon(true);
-      setGameStarted(false);
-      setShowEndModal(true);
-    }
-  }, [matchedPairs, difficult]);
+  // Check win condition - pindahkan logic ke handleCardClick
+  const totalPairs = getDifficulty(difficulty).pairs;
 
-  const handleCardClick = (cardID: number) => {
-    if (!gameStarted) setGameStarted(true);
+  const handleCardClick = useCallback(
+    (cardID: number) => {
+      if (!gameStarted) setGameStarted(true);
 
-    const card = cards.find((c) => c.id === cardID);
-    if (!card || card.isFlipped || card.isMatched || flippedCards.length >= 2) return;
+      const card = cards.find((c) => c.id === cardID);
+      if (!card || card.isFlipped || card.isMatched || flippedCards.length >= 2) return;
 
-    const newFlippedCard = [...flippedCards, cardID];
-    setFlippedCards(newFlippedCard);
+      const newFlippedCard = [...flippedCards, cardID];
+      setFlippedCards(newFlippedCard);
 
-    setCards((prev) => prev.map((c) => (c.id === cardID ? { ...c, isFlipped: true } : c)));
+      setCards((prev) => prev.map((c) => (c.id === cardID ? { ...c, isFlipped: true } : c)));
 
-    if (newFlippedCard.length === 2) {
-      setMoves((prev) => prev + 1);
+      if (newFlippedCard.length === 2) {
+        setMoves((prev) => prev + 1);
 
-      const [firstId, secondId] = newFlippedCard;
-      const firstCard = cards.find((c) => c.id === firstId);
-      const secondCard = cards.find((c) => c.id === secondId);
+        const [firstId, secondId] = newFlippedCard;
+        const firstCard = cards.find((c) => c.id === firstId);
+        const secondCard = cards.find((c) => c.id === secondId);
 
-      if (firstCard?.symbol === secondCard?.symbol) {
-        // Match found
-        setTimeout(() => {
-          setCards((prev) => prev.map((c) => (c.id === firstId || c.id === secondId ? { ...c, isMatched: true } : c)));
-          setMatchedPairs((prev) => prev + 1);
-          setFlippedCards([]);
-        }, 500);
-      } else {
-        // No match - use difficulty-based timing
-        const { flipBackDelay } = getDifficulty(difficult);
-        setTimeout(() => {
-          setCards((prev) => prev.map((c) => (c.id === firstId || c.id === secondId ? { ...c, isFlipped: false } : c)));
-          setFlippedCards([]);
-        }, flipBackDelay);
+        if (firstCard?.symbol === secondCard?.symbol) {
+          // Match found
+          setTimeout(() => {
+            setCards((prev) =>
+              prev.map((c) => (c.id === firstId || c.id === secondId ? { ...c, isMatched: true } : c))
+            );
+            setMatchedPairs((prev) => {
+              const newMatchedPairs = prev + 1;
+              // Check win condition di sini
+              if (newMatchedPairs === totalPairs) {
+                setTimeout(() => {
+                  setGameWon(true);
+                  setGameStarted(false);
+                  setShowEndModal(true);
+                }, 600); // Delay sedikit untuk animasi
+              }
+              return newMatchedPairs;
+            });
+            setFlippedCards([]);
+          }, 500);
+        } else {
+          // No match - use difficulty-based timing
+          const { flipBackDelay } = getDifficulty(difficulty);
+          setTimeout(() => {
+            setCards((prev) =>
+              prev.map((c) => (c.id === firstId || c.id === secondId ? { ...c, isFlipped: false } : c))
+            );
+            setFlippedCards([]);
+          }, flipBackDelay);
+        }
       }
-    }
-  };
+    },
+    [gameStarted, cards, flippedCards, difficulty, totalPairs]
+  );
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -152,7 +161,7 @@ const MemoryMatch = ({ onBack }: themeGame) => {
   };
 
   const getScoreRating = () => {
-    const { pairs } = getDifficulty(difficult);
+    const { pairs } = getDifficulty(difficulty);
     const perfectMoves = pairs;
     const efficiency = perfectMoves / moves;
 
@@ -162,12 +171,12 @@ const MemoryMatch = ({ onBack }: themeGame) => {
     return "Keep practicing!";
   };
 
-  const startGameWithDifficulty = (selectedDifficulty: Dificult) => {
+  const startGameWithDifficulty = (selectedDifficulty: Difficulty) => {
     setDifficulty(selectedDifficulty);
     setShowStartModal(false);
   };
 
-  const { gridCols } = getDifficulty(difficult);
+  const { gridCols } = getDifficulty(difficulty);
 
   return (
     <div className="min-h-screen bg-gray-50 p-6">
@@ -213,7 +222,7 @@ const MemoryMatch = ({ onBack }: themeGame) => {
             <div className="flex items-center gap-2 text-gray-600">
               <Trophy className="w-4 h-4" />
               <span className="font-mono text-sm">
-                {matchedPairs}/{getDifficulty(difficult).pairs}
+                {matchedPairs}/{getDifficulty(difficulty).pairs}
               </span>
             </div>
           </div>
@@ -305,7 +314,7 @@ const MemoryMatch = ({ onBack }: themeGame) => {
                 </div>
                 <h2 className="text-2xl font-semibold text-gray-900 mb-2">Congratulations!</h2>
                 <p className="text-gray-600 text-sm mb-6">
-                  You completed the <span className="font-medium capitalize">{difficult}</span> level
+                  You completed the <span className="font-medium capitalize">{difficulty}</span> level
                 </p>
 
                 <div className="bg-gray-50 rounded-lg p-4 mb-6">
