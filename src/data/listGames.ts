@@ -10,7 +10,27 @@ export const games: gamesProp[] = [
     color: "bg-emerald-500",
     themeColor: "#10b981",
     category: "Strategy",
-    status: "ready"
+    status: "ready",
+  },
+  {
+    id: "snake",
+    title: "Snake",
+    description: "deskripsi for games",
+    icon: Route,
+    color: "bg-green-500",
+    themeColor: "#22c55e",
+    category: "Arcade",
+    status: "ready",
+  },
+  {
+    id: "memory-match",
+    title: "Memory Match",
+    description: "deskripsi for games",
+    icon: Brain,
+    color: "bg-pink-500",
+    themeColor: "#ec4899",
+    category: "Puzzle",
+    status: "soon",
   },
   {
     id: "2048",
@@ -24,16 +44,6 @@ export const games: gamesProp[] = [
   },
 
   {
-    id: "memory-match",
-    title: "Memory Match",
-    description: "deskripsi for games",
-    icon: Brain,
-    color: "bg-pink-500",
-    themeColor: "#ec4899",
-    category: "Puzzle",
-    status: "soon",
-  },
-  {
     id: "flappy",
     title: "Triangle",
     description: "deskripsi for games",
@@ -43,16 +53,7 @@ export const games: gamesProp[] = [
     category: "Arcade",
     status: "soon",
   },
-  {
-    id: "snake",
-    title: "Snake",
-    description: "deskripsi for games",
-    icon: Route,
-    color: "bg-green-500",
-    themeColor: "#22c55e",
-    category: "Arcade",
-    status: "maintance",
-  },
+
   {
     id: "pong",
     title: "Pong",
