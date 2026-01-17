@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { games } from "@/data/listGames"; //
 import { Button } from "@/components/ui/button"; //
 import { ArrowLeft } from "lucide-react";
-import TicTacToeGame from "@/games/TicTacToe/TicTacToeGame";
+import TicTacToeGame from "@/games/TicTacToeGame";
 import SnakeGame from "@/games/SnakeGame";
 import MemoryMatch from "@/games/MemoryMatchGame";
 import Puzzle2048Game from "@/games/Puzzle2048Game";
@@ -26,13 +26,11 @@ export default function GamePage() {
       </Button>
 
       {/* Logika render sesuai ID dari App.tsx */}
-      {id === "tic-tac-to" && <TicTacToeGame onBack={onBack} themeColor={gameData.themeColor} />}
+      {id === "tic-tac-toe" && <TicTacToeGame onBack={onBack} themeColor={gameData.themeColor} />}
       {id === "snake" && <SnakeGame onBack={onBack} themeColor={gameData.themeColor} />}
       {id === "memory-match" && <MemoryMatch onBack={onBack} themeColor={gameData.themeColor} />}
       {id === "2048" && <Puzzle2048Game onBack={onBack} themeColor={gameData.themeColor} />}
       {id === "typing-speed" && <TypingSpeedGame onBack={onBack} themeColor={gameData.themeColor} />}
-
-      {/* Lanjutkan untuk id lainnya */}
     </div>
   );
 }

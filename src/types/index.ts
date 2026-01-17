@@ -1,6 +1,29 @@
 import type { LucideIcon } from "lucide-react";
 
-export type GameType = "menu" | "2048" | "tic-tac-to" | "memory-match" | "flappy" | "snake" | "pong" | "typing-speed";
+export type GameType =
+  | "menu"
+  | "2048"
+  | "simon-says"
+  | "whack-a-mole"
+  | "coin-collector"
+  | "bubble-pop"
+  | "word-scramble"
+  | "flappy"
+  | "dino"
+  | "snake"
+  | "pong"
+  | "reaction"
+  | "tetris"
+  | "breakout"
+  | "orbit-defense"
+  | "color-match"
+  | "space-invaders"
+  | "tic-tac-toe"
+  | "memory-match"
+  | "minesweeper"
+  | "connect-four"
+  | "quick-math"
+  | "typing-speed";
 
 export type Category = "All" | "Arcade" | "Puzzle" | "Strategy" | "Action";
 

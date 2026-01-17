@@ -1,9 +1,9 @@
 import type { gamesProp } from "@/types";
-import { Brain, Grid3X3, Keyboard, Minus, Route, Triangle } from "lucide-react";
+import { Bomb, Brain, Calculator, Gamepad2, Grid3X3, Keyboard, Route, Triangle } from "lucide-react";
 
 export const games: gamesProp[] = [
   {
-    id: "tic-tac-to",
+    id: "tic-tac-toe",
     title: "Tic Tac To",
     description: "Classic stategy game - get three in a row to win",
     icon: Grid3X3,
@@ -55,22 +55,41 @@ export const games: gamesProp[] = [
   {
     id: "flappy",
     title: "Triangle",
-    description: "deskripsi for games",
+    description: "Navigate through obstacles with precise timing.",
     icon: Triangle,
     color: "bg-yellow-500",
     themeColor: "#f59e0b",
     category: "Arcade",
     status: "soon",
   },
-
+  {
+    id: "quick-math",
+    title: "Quick Math",
+    description: "Answer as many math questions as you can in 60 seconds.",
+    icon: Calculator,
+    color: "bg-sky-500",
+    themeColor: "#0ea5e9",
+    category: "Puzzle",
+    status: "soon",
+  },
   {
     id: "pong",
     title: "Pong",
-    description: "deskripsi for games",
-    icon: Minus,
-    color: "bg-sky-500",
-    themeColor: "#0ea5e9",
+    description: "The timeless arcade classic. Play against an AI.",
+    icon: Gamepad2,
+    color: "bg-blue-500",
+    themeColor: "#3b82f6",
     category: "Arcade",
+    status: "soon",
+  },
+  {
+    id: "minesweeper",
+    title: "Minesweeper",
+    description: "Clear the board without hitting mines",
+    icon: Bomb,
+    color: "bg-gray-700",
+    themeColor: "#374151",
+    category: "Strategy",
     status: "soon",
   },
 ];
