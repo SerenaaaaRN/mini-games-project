@@ -34,10 +34,11 @@ function App() {
         return <SnakeGame {...commonProps} />;
       case "memory-match":
         return <MemoryMatchGame {...commonProps} />;
+      case "2048":
+        return <Puzzle2048Game {...commonProps} />;
       case "typing-speed":
         return <TypingSpeedGame />;
-      case "2048":
-        return <Puzzle2048Game />;
+
       case "flappy":
         return <TriangleGame />;
       case "pong":

@@ -40,7 +40,7 @@ export const games: gamesProp[] = [
     color: "bg-amber-500",
     themeColor: "#f59e0b",
     category: "Puzzle",
-    status: "soon",
+    status: "ready",
   },
   {
     id: "typing-speed",
@@ -50,7 +50,7 @@ export const games: gamesProp[] = [
     color: "bg-teal-500",
     themeColor: "#14b8a6",
     category: "Action",
-    status: "soon",
+    status: "ready",
   },
   {
     id: "flappy",
