@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import type { themeGame } from "@/types";
@@ -12,7 +14,7 @@ const GAME_SPEED = 150;
 
 type Position = { x: number; y: number };
 
-const Snake = ({ onBack, themeColor = "#22c55e" }: themeGame) => {
+const SnakeGame = ({ onBack, themeColor = "#22c55e" }: themeGame) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [snake, setSnake] = useState<Position[]>(INITIAL_SNAKE);
   const [direction, setDirection] = useState<Position>(INITIAL_DIRECTION);
@@ -291,4 +293,4 @@ const Snake = ({ onBack, themeColor = "#22c55e" }: themeGame) => {
   );
 };
 
-export default Snake;
+export default SnakeGame;

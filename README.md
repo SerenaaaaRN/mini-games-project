@@ -1,5 +1,10 @@
-### Under Deploymentttt!!!
+## Under Deployment
 
 MINI GAMES ARCADE
 
-![SS Project](public/pict-phase-2.png)
+---
+
+Build with NextJS 16
+
+![SS Project](public/desktopview.png)
+![SS Project](public/mobileview.png)

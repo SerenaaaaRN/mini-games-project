@@ -1,13 +1,16 @@
+"use client";
+
 import type { GameMode, GameState, Player, Score } from "@/types/typeTicTac";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { GameMenu } from "./GameMenu";
 import { GameOver } from "./GameOver";
 import { checkWinner, getBestMove } from "./gameUtils";
+import { themeGame } from "@/types";
 
 const CANVAS_SIZE = 600;
 const GRID_SIZE = 200;
 
-const TicTacToeGame = ({ themeColor }: { themeColor: string }) => {
+const TicTacToeGame = ({ onBack, themeColor }: themeGame) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [gameState, setGameState] = useState<GameState>("menu");
   const [board, setBoard] = useState<Player[]>(Array(9).fill(null));
