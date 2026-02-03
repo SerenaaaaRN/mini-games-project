@@ -1,5 +1,5 @@
 import type { gamesProp } from "@/types";
-import { Card, CardDescription, CardTitle } from "./ui/card";
+import { Card, CardDescription, CardTitle } from "@/components/ui/8bit/card";
 import { Play } from "lucide-react";
 
 interface GameCardProps {
@@ -9,7 +9,7 @@ interface GameCardProps {
 
 export const GameCard = ({ game, onClick }: GameCardProps) => (
   <Card
-    className="relative hover:border-gray-500 transition-all duration-200 cursor-pointer hover:shadow-lg"
+    className="relative hover:-translate-y-1 transition-transform cursor-pointer bg-white dark:bg-black"
     onClick={onClick}
   >
     {game.id && (

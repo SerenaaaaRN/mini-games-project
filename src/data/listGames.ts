@@ -90,6 +90,6 @@ export const games: gamesProp[] = [
     color: "bg-gray-700",
     themeColor: "#374151",
     category: "Strategy",
-    status: "soon",
+    status: "ready",
   },
 ];

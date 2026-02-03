@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useCallback } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/8bit/button";
 import { RotateCcw, ArrowLeft } from "lucide-react";
 import { usePuzzle2048 } from "@/hooks/usePuzzle2048";
 import { Tile } from "./molecules/Tile2048";

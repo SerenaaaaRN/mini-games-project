@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/8bit/button";
+import { Card } from "@/components/ui/8bit/card";
 import { Triangle, Trophy, RotateCcw, ArrowLeft } from "lucide-react";
 import { useFlappyTriangle } from "@/hooks/useFlappyTriangle";
 import { FlappyCanvas } from "./molecules/FlappyCanvas";

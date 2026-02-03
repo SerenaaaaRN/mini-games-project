@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/8bit/button";
+import { Card } from "@/components/ui/8bit/card";
 import { ArrowLeft, RotateCcw, Flag, Timer } from "lucide-react";
 import { useMinesweeper } from "@/hooks/useMinesweeper";
 import { MinesweeperBoard } from "./molecules/MinesweeperBoard";

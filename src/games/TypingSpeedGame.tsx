@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/8bit/button";
+import { Card } from "@/components/ui/8bit/card";
 import { Keyboard, ArrowLeft, Trophy } from "lucide-react";
 import { useTypingGame } from "@/hooks/useTypingGame";
 import { WordDisplay } from "./molecules/WordDisplayTyping";

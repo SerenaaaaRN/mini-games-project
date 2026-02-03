@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -116,6 +117,9 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+  }
+  html {
+    font-family: 'Press Start 2P', system-ui, sans-serif; /* Set global font */
   }
   body {
     @apply bg-background text-foreground;

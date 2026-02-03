@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useCallback } from "react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/8bit/button";
+import { Card } from "@/components/ui/8bit/card";
 import { useSnakeGame } from "@/hooks/useSnakeGame";
-import { SnakeCanvas } from "./SnakeCanvas";
+import { SnakeCanvas } from "@/games/molecules/SnakeCanvas";
 import { themeGame } from "@/types";
 import { ArrowLeft, RotateCcw, Play, Pause, ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -54,7 +54,7 @@ const SnakeGame = ({ onBack, themeColor = "#22c55e" }: themeGame) => {
           </Button>
         </div>
 
-        <Card className="p-4 mb-4">
+        <Card className="border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] bg-white">
           <SnakeCanvas
             {...state}
             themeColor={themeColor}
@@ -63,13 +63,19 @@ const SnakeGame = ({ onBack, themeColor = "#22c55e" }: themeGame) => {
           />
         </Card>
 
-        <div className="text-center space-y-4">
+        <div className="text-center space-y-4 mt-10">
           <div className="flex justify-center gap-4 text-sm font-semibold text-gray-700">
             <span>Score: {state.score}</span>
             <span>Best: {state.bestScore}</span>
           </div>
 
-          <Button onClick={() => actions.setGameRunning(!state.gameRunning)} style={{ backgroundColor: themeColor }}>
+          <Button
+            variant="default"
+            size="lg"
+            className="animate-pulse"
+            onClick={() => actions.setGameRunning(!state.gameRunning)}
+            style={{ backgroundColor: themeColor }}
+          >
             {state.gameRunning ? <Pause className="w-4 h-4 mr-2" /> : <Play className="w-4 h-4 mr-2" />}
             {state.gameOver ? "Play Again" : state.gameRunning ? "Pause" : "Start"}
           </Button>

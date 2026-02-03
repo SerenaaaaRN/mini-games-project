@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/8bit/button";
+import { Card } from "@/components/ui/8bit/card";
 import { ArrowLeft, Play, Pause, RotateCcw } from "lucide-react";
 import { usePongGame } from "@/hooks/usePongGame";
 import { PongCanvas } from "./molecules/PongCanvas";

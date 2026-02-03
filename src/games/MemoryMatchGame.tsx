@@ -2,7 +2,7 @@
 
 import { useMemoryMatch, getDifficultySettings } from "@/hooks/useMemoryMatch";
 import { MemoryBoard } from "./molecules/MemoryBoard";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/8bit/button";
 import { themeGame } from "@/types";
 import { ArrowLeft, Clock, RotateCcw, Target, Trophy } from "lucide-react";
 

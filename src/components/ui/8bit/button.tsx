@@ -4,8 +4,6 @@ import { cn } from "@/lib/utils";
 
 import { Button as ShadcnButton } from "@/components/ui/button";
 
-import "@/components/ui/8bit/styles/retro.css";
-
 export const buttonVariants = cva("", {
   variants: {
     font: {
@@ -43,8 +41,7 @@ export interface BitButtonProps
 function Button({ children, asChild, ...props }: BitButtonProps) {
   const { variant, size, className, font } = props;
 
-  const hasBorder =
-    variant !== "ghost" && variant !== "link" && size !== "icon";
+  const hasBorder = variant !== "ghost" && variant !== "link" && size !== "icon";
 
   return (
     <ShadcnButton

@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/8bit/button";
+import { Card } from "@/components/ui/8bit/card";
 import { useQuickMath } from "@/hooks/useQuickMath";
 import { themeGame } from "@/types";
 import { QuickMathBoard } from "./molecules/QuickMathBoard";
