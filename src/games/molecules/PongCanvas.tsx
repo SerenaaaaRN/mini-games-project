@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { RefObject, useEffect } from "react";
 import { PongGameState, PongConstants } from "@/types/pong";
 
 interface PongCanvasProps extends PongGameState {
   themeColor: string;
   constants: PongConstants;
+  canvasRef: RefObject<HTMLCanvasElement | null>;
 }
 
 export const PongCanvas = ({
@@ -17,8 +18,8 @@ export const PongCanvas = ({
   gameOver,
   themeColor,
   constants,
+  canvasRef,
 }: PongCanvasProps) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const { CANVAS_WIDTH, CANVAS_HEIGHT, BALL_SIZE } = constants;
 
   useEffect(() => {
@@ -83,6 +84,7 @@ export const PongCanvas = ({
     CANVAS_WIDTH,
     CANVAS_HEIGHT,
     BALL_SIZE,
+    canvasRef,
   ]);
 
   return (
