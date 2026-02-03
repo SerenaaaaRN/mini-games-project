@@ -23,11 +23,8 @@ const FlappyTriangleGame = ({ onBack, themeColor = "#f59e0b" }: themeGame) => {
   }, [actions]);
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-amber-50 to-orange-100 flex flex-col items-center justify-center p-4">
+    <div className="min-h-dvh bg-linear-to-br from-amber-50 to-orange-100 flex flex-col items-center justify-center p-4">
       <div className="flex items-center justify-between w-full max-w-4xl mb-4">
-        <Button variant="outline" size="sm" onClick={onBack}>
-          <ArrowLeft className="w-4 h-4 mr-2" /> Back
-        </Button>
         <h1 className="text-2xl font-bold text-gray-800">Flappy Triangle</h1>
         <div className="w-20" />
       </div>
@@ -37,7 +34,7 @@ const FlappyTriangleGame = ({ onBack, themeColor = "#f59e0b" }: themeGame) => {
 
         {state.gameState === "menu" && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm rounded-xl">
-            <Card className="p-8 text-center border-amber-200 shadow-xl w-96">
+            <Card className="p-8 text-center border-amber-200 shadow-xl max-w-screen">
               <div className="mb-6">
                 <div
                   className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center shadow-lg"

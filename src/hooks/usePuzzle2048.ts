@@ -3,7 +3,6 @@ import { Board, Direction } from "@/types/puzzle2048";
 
 const BOARD_SIZE = 4;
 
-// --- UTILITY FUNCTIONS ---
 const addRandomTile = (board: Board): void => {
   const emptyCells: [number, number][] = [];
   for (let r = 0; r < BOARD_SIZE; r++) {

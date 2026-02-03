@@ -1,6 +1,6 @@
 ## MINI GAMES ARCADE
 
-Dibangun dengan Next.js 16 dan React 19
+Dibangun dengan Next.js 16, React 19, dengan UI Shadcn 8 bit retro dengan sedikit sentuhan neo burtalism design
 
 ---
 
@@ -27,15 +27,16 @@ Dibangun dengan Next.js 16 dan React 19
 
 ```
 src/
-├── app/
-│   └── games/[id]/             # Dynamic routing navigasi game
-├── components/
-│   └── ui/
-│       └── 8bit/styles/        # Komponen UI dengan tema retro/8-bit kustom
-├── data/                       # Konfigurasi statis dan metadata game
-├── games/
-│   └── molecules/              # Komponen presentasional inti permainan
-├── hooks/                      # Custom hooks (useTicTacToe, usePuzzle2048, dll)
-├── lib/                        # Utilitas pembantu dan helper functions
-└──  types/                     # Definisi TypeScript interface & types
+├───app
+│   └───games
+│       └───[id]
+├───components
+│   └───ui
+│       └───8bit
+├───data
+├───games
+│   └───molecules
+├───hooks
+├───lib
+└───types
 ```

@@ -10,36 +10,38 @@ interface MinesweeperBoardProps {
 
 export const MinesweeperBoard = ({ board, cols, onCellClick, onRightClick }: MinesweeperBoardProps) => {
   const getCellContent = (cell: Cell) => {
-    if (cell.isFlagged) return <Flag className="w-4 h-4 text-red-500" />;
+    if (cell.isFlagged) return <Flag className="w-3 h-3 sm:w-4 sm:h-4 text-destructive" />;
     if (!cell.isRevealed) return null;
-    if (cell.isMine) return <Bomb className="w-4 h-4 text-gray-800" />;
+    if (cell.isMine) return <Bomb className="w-3 h-3 sm:w-4 sm:h-4 text-gray-800" />;
     if (cell.adjacentMines > 0) {
-      const colors = [
+      const themeColors = [
         "",
+        "text-primary",
+        "text-secondary",
+        "text-accent",
+        "text-chart-4",
+        "text-chart-5",
         "text-blue-500",
-        "text-green-600",
-        "text-red-500",
-        "text-purple-700",
-        "text-maroon-700",
-        "text-cyan-500",
-        "text-black",
-        "text-gray-500",
+        "text-foreground",
+        "text-muted-foreground",
       ];
-      return <span className={`font-bold ${colors[cell.adjacentMines]}`}>{cell.adjacentMines}</span>;
+      return (
+        <span className={`font-bold text-xs sm:text-sm ${themeColors[cell.adjacentMines]}`}>{cell.adjacentMines}</span>
+      );
     }
     return null;
   };
 
   return (
-    <div className="bg-gray-300 p-1 inline-block">
-      <div className="grid" style={{ gridTemplateColumns: `repeat(${cols}, 24px)` }}>
+    <div className="bg-gray-300 p-1 inline-block w-full">
+      <div className="grid" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` }}>
         {board.map((row, r) =>
           row.map((cell, c) => (
             <div
               key={`${r}-${c}`}
               onClick={() => onCellClick(r, c)}
               onContextMenu={(e) => onRightClick(e, r, c)}
-              className={`w-6 h-6 flex items-center justify-center text-sm border
+              className={`aspect-square flex items-center justify-center text-sm border
                 ${
                   cell.isRevealed
                     ? "bg-gray-200 border-gray-300"

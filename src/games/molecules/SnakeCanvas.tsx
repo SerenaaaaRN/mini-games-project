@@ -12,66 +12,90 @@ interface SnakeCanvasProps {
   canvasSize: number;
 }
 
-export const SnakeCanvas = ({
-  snake,
-  food,
-  themeColor,
-  gameOver,
-  score,
-  bestScore,
-  gridSize,
-  canvasSize,
-}: SnakeCanvasProps) => {
+export const SnakeCanvas = ({ snake, food, themeColor, gameOver, score, bestScore, gridSize }: SnakeCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d");
+    const canvas = canvasRef.current;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
+
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    // Clear & Grid
-    ctx.fillStyle = "#f3f4f6";
-    ctx.fillRect(0, 0, canvasSize, canvasSize);
-    ctx.strokeStyle = "#e5e7eb";
-    for (let i = 0; i <= canvasSize; i += gridSize) {
-      ctx.beginPath();
-      ctx.moveTo(i, 0);
-      ctx.lineTo(i, canvasSize);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(0, i);
-      ctx.lineTo(canvasSize, i);
-      ctx.stroke();
-    }
+    const resizeCanvas = () => {
+      const size = container.offsetWidth;
+      canvas.width = size;
+      canvas.height = size;
+      draw(size, size / gridSize);
+    };
 
-    // Snake
-    ctx.fillStyle = themeColor;
-    snake.forEach((segment, i) => {
-      ctx.fillRect(segment.x * gridSize + 1, segment.y * gridSize + 1, gridSize - 2, gridSize - 2);
-      if (i === 0) {
-        ctx.fillStyle = "#fff";
-        ctx.fillRect(segment.x * gridSize + 4, segment.y * gridSize + 4, 3, 3);
-        ctx.fillRect(segment.x * gridSize + 13, segment.y * gridSize + 4, 3, 3);
-        ctx.fillStyle = themeColor;
+    const draw = (currentSize: number, currentGridSize: number) => {
+      ctx.fillStyle = "#f3f4f6";
+      ctx.fillRect(0, 0, currentSize, currentSize);
+      ctx.strokeStyle = "#e5e7eb";
+      for (let i = 0; i <= currentSize; i += currentGridSize) {
+        ctx.beginPath();
+        ctx.moveTo(i, 0);
+        ctx.lineTo(i, currentSize);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(0, i);
+        ctx.lineTo(currentSize, i);
+        ctx.stroke();
       }
-    });
 
-    // Food
-    ctx.fillStyle = "#ef4444";
-    ctx.fillRect(food.x * gridSize + 1, food.y * gridSize + 1, gridSize - 2, gridSize - 2);
+      ctx.fillStyle = themeColor;
+      snake.forEach((segment, i) => {
+        ctx.fillRect(
+          segment.x * currentGridSize + 1,
+          segment.y * currentGridSize + 1,
+          currentGridSize - 2,
+          currentGridSize - 2
+        );
+        if (i === 0) {
+          ctx.fillStyle = "#fff";
+          const eyeSize = currentGridSize / 6;
+          ctx.fillRect(segment.x * currentGridSize + eyeSize, segment.y * currentGridSize + eyeSize, eyeSize, eyeSize);
+          ctx.fillRect(
+            segment.x * currentGridSize + 4 * eyeSize,
+            segment.y * currentGridSize + eyeSize,
+            eyeSize,
+            eyeSize
+          );
+          ctx.fillStyle = themeColor;
+        }
+      });
 
-    if (gameOver) {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
-      ctx.fillRect(0, 0, canvasSize, canvasSize);
-      ctx.fillStyle = "#fff";
-      ctx.textAlign = "center";
-      ctx.font = "bold 24px Arial";
-      ctx.fillText("Game Over!", canvasSize / 2, canvasSize / 2 - 10);
-      ctx.font = "16px Arial";
-      ctx.fillText(`Score: ${score} | Best: ${bestScore}`, canvasSize / 2, canvasSize / 2 + 20);
-    }
-  }, [snake, food, gameOver, themeColor, gridSize, canvasSize, score, bestScore]);
+      ctx.fillStyle = "#ef4444";
+      ctx.fillRect(
+        food.x * currentGridSize + 1,
+        food.y * currentGridSize + 1,
+        currentGridSize - 2,
+        currentGridSize - 2
+      );
+
+      if (gameOver) {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+        ctx.fillRect(0, 0, currentSize, currentSize);
+        ctx.fillStyle = "#fff";
+        ctx.textAlign = "center";
+        ctx.font = `bold ${currentSize / 15}px Arial`;
+        ctx.fillText("Game Over!", currentSize / 2, currentSize / 2 - 10);
+        ctx.font = `${currentSize / 25}px Arial`;
+        ctx.fillText(`Score: ${score} | Best: ${bestScore}`, currentSize / 2, currentSize / 2 + 20);
+      }
+    };
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+    return () => window.removeEventListener("resize", resizeCanvas);
+  }, [snake, food, gameOver, themeColor, gridSize, score, bestScore]);
 
   return (
-    <canvas ref={canvasRef} width={canvasSize} height={canvasSize} className="border border-gray-300 mx-auto block" />
+    <div ref={containerRef} className="w-full aspect-square">
+      <canvas ref={canvasRef} className="border border-gray-300 mx-auto block w-full h-full" />
+    </div>
   );
 };

@@ -8,7 +8,7 @@ interface BoardProps {
 }
 
 export const MemoryBoard = ({ cards, gridCols, onCardClick }: BoardProps) => (
-  <div className="grid gap-3 max-w-2xl mx-auto mb-8" style={{ gridTemplateColumns: `repeat(${gridCols}, 1fr)` }}>
+  <div className="grid gap-2 sm:gap-3 max-w-2xl mx-auto mb-8" style={{ gridTemplateColumns: `repeat(${gridCols}, 1fr)` }}>
     {cards.map((card) => (
       <Card
         key={card.id}
@@ -23,9 +23,9 @@ export const MemoryBoard = ({ cards, gridCols, onCardClick }: BoardProps) => (
         onClick={() => onCardClick(card.id)}
       >
         {card.isFlipped || card.isMatched ? (
-          <span className="text-3xl">{card.symbol}</span>
+          <span className="text-2xl sm:text-3xl">{card.symbol}</span>
         ) : (
-          <div className="w-6 h-6 bg-gray-300 rounded-full opacity-40" />
+          <div className="w-5 h-5 sm:w-6 sm:h-6 bg-gray-300 rounded-full opacity-40" />
         )}
       </Card>
     ))}

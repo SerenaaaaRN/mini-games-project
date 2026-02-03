@@ -6,9 +6,9 @@ import { Card } from "@/components/ui/8bit/card";
 import { useSnakeGame } from "@/hooks/useSnakeGame";
 import { SnakeCanvas } from "@/games/molecules/SnakeCanvas";
 import { themeGame } from "@/types";
-import { ArrowLeft, RotateCcw, Play, Pause, ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { RotateCcw, Play, Pause, ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 
-const SnakeGame = ({ onBack, themeColor = "#22c55e" }: themeGame) => {
+const SnakeGame = ({ themeColor = "#22c55e" }: themeGame) => {
   const { state, actions, constants } = useSnakeGame();
 
   const handleKeyPress = useCallback(
@@ -42,19 +42,16 @@ const SnakeGame = ({ onBack, themeColor = "#22c55e" }: themeGame) => {
   }, [handleKeyPress]);
 
   return (
-    <div className="min-h-screen bg-linear-0-to-br from-green-50 to-emerald-100 flex flex-col items-center justify-center p-4">
+    <div className=" bg-linear-0-to-br from-green-50 to-emerald-100 flex flex-col items-center justify-center">
       <div className="max-w-md w-full">
         <div className="flex items-center justify-between mb-4">
-          <Button variant="outline" size="sm" onClick={onBack}>
-            <ArrowLeft className="w-4 h-4 mr-2" /> Back
-          </Button>
           <h1 className="text-2xl font-bold text-gray-800">Snake</h1>
           <Button variant="outline" size="sm" onClick={actions.resetGame}>
             <RotateCcw className="w-4 h-4" />
           </Button>
         </div>
 
-        <Card className="border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] bg-white">
+        <Card>
           <SnakeCanvas
             {...state}
             themeColor={themeColor}

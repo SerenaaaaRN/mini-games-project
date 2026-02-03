@@ -17,7 +17,7 @@ export default function HomePage() {
   const filteredGames = selectedCategory === "All" ? games : games.filter((game) => game.category === selectedCategory);
 
   return (
-    <div className="min-h-screen w-full bg-[#c9dfac] dark:bg-[#2d2a2e] text-[#2d2a2e] dark:text-[#fdf6e3] p-8 font-pixel">
+    <div className="min-h-screen w-full bg-[#daebc5] dark:bg-[#2d2a2e] text-[#2d2a2e] dark:text-[#fdf6e3] p-8 font-pixel">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <header className="text-center mb-12 space-y-4">

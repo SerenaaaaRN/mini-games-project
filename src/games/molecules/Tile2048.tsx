@@ -14,7 +14,12 @@ const TILE_COLORS: Record<number, string> = {
 
 export const Tile = ({ value }: { value: number | null }) => {
   const colorClass = value ? TILE_COLORS[value] || "bg-purple-500 text-white" : "bg-gray-200 scale-95";
-  const sizeClass = value && value >= 1000 ? "text-sm" : value && value >= 100 ? "text-base" : "text-lg";
+  const sizeClass =
+    value && value >= 1024
+      ? "text-xs sm:text-sm"
+      : value && value >= 128
+      ? "text-sm sm:text-base"
+      : "text-base sm:text-lg";
 
   return (
     <div

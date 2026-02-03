@@ -1,12 +1,11 @@
 "use client";
 
-import { use } from "react"; // Untuk unwrap params di Next.js terbaru
+import { use } from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { games } from "@/data/listGames";
 import { ArrowLeft, Gamepad2, Info } from "lucide-react";
 
-// Import UI 8-bit
 import { Button } from "@/components/ui/8bit/button";
 import { Card } from "@/components/ui/8bit/card";
 import { Badge } from "@/components/ui/8bit/badge";
@@ -55,7 +54,7 @@ export default function GamePage({ params }: { params: Promise<{ id: string }> }
     <div className="min-h-screen bg-[#fdf6e3] dark:bg-[#2d2a2e] p-4 md:p-8 font-pixel">
       <div className="max-w-6xl mx-auto">
         {/* Navigation Header */}
-        <div className="mb-8 flex items-center justify-between">
+        <header className="mb-8 flex items-center justify-between">
           <Link href="/">
             <Button variant="outline" className="gap-2 bg-white dark:bg-black uppercase text-xs">
               <ArrowLeft className="w-4 h-4" />
@@ -65,7 +64,7 @@ export default function GamePage({ params }: { params: Promise<{ id: string }> }
           <div className="hidden md:block text-xs uppercase tracking-widest opacity-50 animate-pulse">
             INSERT COIN [CREDITS: 00]
           </div>
-        </div>
+        </header>
 
         <div className="grid lg:grid-cols-[1fr_350px] gap-8 items-start">
           <main className="order-2 lg:order-1">

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Ball, Paddle } from "@/types/pong";
 
 const CANVAS_WIDTH = 600;
@@ -38,6 +38,7 @@ export const usePongGame = () => {
   const [gameRunning, setGameRunning] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [keys, setKeys] = useState<{ [key: string]: boolean }>({});
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const resetBall = useCallback(() => {
     setBall({
@@ -74,7 +75,28 @@ export const usePongGame = () => {
     );
   }, []);
 
-  // Keyboard controls
+  const handleTouchMove = useCallback((event: TouchEvent) => {
+    if (canvasRef.current) {
+      const touch = event.touches[0];
+      const canvasTop = canvasRef.current.getBoundingClientRect().top;
+      let newY = touch.clientY - canvasTop - playerPaddle.height / 2;
+      newY = Math.max(0, Math.min(CANVAS_HEIGHT - playerPaddle.height, newY));
+      setPlayerPaddle(prev => ({ ...prev, y: newY }));
+    }
+  }, [playerPaddle.height]);
+
+  useEffect(() => {
+    const currentCanvas = canvasRef.current;
+    if (currentCanvas) {
+      currentCanvas.addEventListener("touchmove", handleTouchMove);
+    }
+    return () => {
+      if (currentCanvas) {
+        currentCanvas.removeEventListener("touchmove", handleTouchMove);
+      }
+    };
+  }, [handleTouchMove]);
+  
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       setKeys((prev) => ({ ...prev, [event.key]: true }));
@@ -98,12 +120,10 @@ export const usePongGame = () => {
     };
   }, [gameRunning, gameOver]);
 
-  // Game Loop
   useEffect(() => {
     if (!gameRunning || gameOver) return;
 
     const interval = setInterval(() => {
-      // Move player paddle
       setPlayerPaddle((prev) => {
         let newY = prev.y;
         if (keys["ArrowUp"] && newY > 0) {
@@ -115,7 +135,6 @@ export const usePongGame = () => {
         return { ...prev, y: newY };
       });
 
-      // Move AI paddle
       setAiPaddle((prev) => {
         const ballCenterY = ball.y + BALL_SIZE / 2;
         const paddleCenterY = prev.y + prev.height / 2;
@@ -131,7 +150,6 @@ export const usePongGame = () => {
         return { ...prev, y: newY };
       });
 
-      // Move ball
       setBall((prev) => {
         const newBall = {
           ...prev,
@@ -139,12 +157,10 @@ export const usePongGame = () => {
           y: prev.y + prev.dy,
         };
 
-        // Wall collision
         if (newBall.y <= 0 || newBall.y >= CANVAS_HEIGHT - BALL_SIZE) {
           newBall.dy = -newBall.dy;
         }
 
-        // Paddle collision
         if (checkCollision(newBall, playerPaddle)) {
           newBall.dx = Math.abs(newBall.dx);
           newBall.speed += 0.2;
@@ -157,7 +173,6 @@ export const usePongGame = () => {
           newBall.dx = newBall.speed * (newBall.dx > 0 ? 1 : -1);
         }
 
-        // Scoring
         if (newBall.x <= 0) {
           setAiScore((s) => s + 1);
           setTimeout(resetBall, 1000);
@@ -177,7 +192,6 @@ export const usePongGame = () => {
     return () => clearInterval(interval);
   }, [gameRunning, gameOver, keys, ball, playerPaddle, aiPaddle, checkCollision, resetBall]);
 
-  // Check Game Over
   useEffect(() => {
     if (playerScore >= 5 || aiScore >= 5) {
       setGameOver(true);
@@ -187,7 +201,8 @@ export const usePongGame = () => {
 
   return {
     state: { ball, playerPaddle, aiPaddle, playerScore, aiScore, gameRunning, gameOver },
-    actions: { resetGame, toggleGame },
+    actions: { resetGame, toggleGame, handleTouchMove },
     constants: { CANVAS_WIDTH, CANVAS_HEIGHT, BALL_SIZE },
+    canvasRef,
   };
 };

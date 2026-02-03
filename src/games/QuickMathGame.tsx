@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/components/ui/8bit/button";
 import { Card } from "@/components/ui/8bit/card";
 import { useQuickMath } from "@/hooks/useQuickMath";
@@ -14,11 +13,8 @@ export const QuickMathGame = ({ onBack, themeColor = "#111827" }: themeGame) => 
   const percent = Math.max(0, Math.min(100, (state.timeLeft / DURATION) * 100));
 
   return (
-    <div className="w-full max-w-xl space-y-6">
+    <div className="w-full max-w-md mx-auto space-y-4 sm:space-y-6 p-4">
       <header className="flex items-center justify-between">
-        <Button onClick={onBack} variant="outline">
-          Back
-        </Button>
         <div className="text-sm text-gray-600">
           Best: <span className="font-semibold text-black">{state.bestScore}</span>
         </div>
@@ -32,7 +28,7 @@ export const QuickMathGame = ({ onBack, themeColor = "#111827" }: themeGame) => 
         />
       </div>
 
-      <div className="grid grid-cols-3 gap-4 text-center">
+      <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
         <CardStats label="Score" value={state.score} />
         <CardStats label="Accuracy" value={state.accuracy} />
         <CardStats label="Time" value={state.timeLeft} />
@@ -46,9 +42,9 @@ export const QuickMathGame = ({ onBack, themeColor = "#111827" }: themeGame) => 
       />
 
       {!state.running && (
-        <div className="mt-6 rounded-xl border border-gray-200 p-6 text-center">
-          <div className="text-2xl font-bold mb-1">Times up!</div>
-          <div className="text-gray-600 mb-4">
+        <div className="mt-6 rounded-xl border border-gray-200 p-4 sm:p-6 text-center">
+          <div className="text-xl sm:text-2xl font-bold mb-1">Times up!</div>
+          <div className="text-gray-600 mb-4 text-sm sm:text-base">
             Score {state.score} • Accuracy {state.accuracy}% • Questions {state.total}
           </div>
           <div className="flex items-center justify-center gap-3">
@@ -66,8 +62,8 @@ export const QuickMathGame = ({ onBack, themeColor = "#111827" }: themeGame) => 
 };
 
 const CardStats = ({ label, value }: { label: string; value: number }) => (
-  <Card className="p-3">
+  <Card className="p-2">
     <div className="text-xs text-gray-500">{label}</div>
-    <div className="text-2xl font-bold">{value}</div>
+    <div className="text-xs sm:text-2xl font-bold">{value}</div>
   </Card>
 );
