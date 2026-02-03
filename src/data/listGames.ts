@@ -60,7 +60,7 @@ export const games: gamesProp[] = [
     color: "bg-yellow-500",
     themeColor: "#f59e0b",
     category: "Arcade",
-    status: "soon",
+    status: "ready",
   },
   {
     id: "quick-math",
@@ -70,7 +70,7 @@ export const games: gamesProp[] = [
     color: "bg-sky-500",
     themeColor: "#0ea5e9",
     category: "Puzzle",
-    status: "soon",
+    status: "ready",
   },
   {
     id: "pong",
@@ -80,7 +80,7 @@ export const games: gamesProp[] = [
     color: "bg-blue-500",
     themeColor: "#3b82f6",
     category: "Arcade",
-    status: "soon",
+    status: "ready",
   },
   {
     id: "minesweeper",

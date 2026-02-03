@@ -16,10 +16,10 @@ Dibangun dengan Next.js 16 dan React 19
 - [x] Memory Match
 - [x] Puzzle 2048
 - [x] Typing Speed
-- [ ] Flappy Triangle
-- [ ] Quick Math Game
-- [ ] Pong
-- [ ] Minesweeper
+- [x] Flappy Triangle
+- [x] Quick Math Game
+- [x] Pong
+- [x] Minesweeper
 
 ---
 

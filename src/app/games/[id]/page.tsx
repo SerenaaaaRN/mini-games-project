@@ -9,6 +9,10 @@ import SnakeGame from "@/games/SnakeGame";
 import MemoryMatch from "@/games/MemoryMatchGame";
 import Puzzle2048Game from "@/games/Puzzle2048Game";
 import TypingSpeedGame from "@/games/TypingSpeedGame";
+import FlappyTriangleGame from "@/games/FlappyTriangleGame";
+import { QuickMathGame } from "@/games/QuickMathGame";
+import PongGame from "@/games/PongGame";
+import MinesweeperGame from "@/games/MinesweeperGame";
 
 export default function GamePage() {
   const { id } = useParams();
@@ -31,6 +35,10 @@ export default function GamePage() {
       {id === "memory-match" && <MemoryMatch onBack={onBack} themeColor={gameData.themeColor} />}
       {id === "2048" && <Puzzle2048Game onBack={onBack} themeColor={gameData.themeColor} />}
       {id === "typing-speed" && <TypingSpeedGame onBack={onBack} themeColor={gameData.themeColor} />}
+      {id === "flappy" && <FlappyTriangleGame onBack={onBack} themeColor={gameData.themeColor} />}
+      {id === "quick-math" && <QuickMathGame onBack={onBack} themeColor={gameData.themeColor} />}
+      {id === "pong" && <PongGame onBack={onBack} themeColor={gameData.themeColor} />}
+      {id === "minesweeper" && <MinesweeperGame onBack={onBack} />}
     </div>
   );
 }
