@@ -20,19 +20,19 @@ export const QuickMathGame = ({ onBack, themeColor = "#111827" }: themeGame) => 
         </div>
       </header>
 
-      <div className="w-full h-3 rounded-full bg-gray-100 overflow-hidden">
+      <section className="w-full h-3 rounded-full bg-gray-100 overflow-hidden">
         <div
           className="h-full rounded-full transition-[width] duration-300"
           style={{ width: `${percent}%`, backgroundColor: "var(--accent)" }}
           aria-label={`Time left ${state.timeLeft}s`}
         />
-      </div>
+      </section>
 
-      <div className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
+      <section className="grid grid-cols-3 gap-2 sm:gap-4 text-center">
         <CardStats label="Score" value={state.score} />
         <CardStats label="Accuracy" value={state.accuracy} />
         <CardStats label="Time" value={state.timeLeft} />
-      </div>
+      </section>
 
       <QuickMathBoard
         question={state.question}
@@ -42,7 +42,7 @@ export const QuickMathGame = ({ onBack, themeColor = "#111827" }: themeGame) => 
       />
 
       {!state.running && (
-        <div className="mt-6 rounded-xl border border-gray-200 p-4 sm:p-6 text-center">
+        <section className="mt-6 rounded-xl border border-gray-200 p-4 sm:p-6 text-center">
           <div className="text-xl sm:text-2xl font-bold mb-1">Times up!</div>
           <div className="text-gray-600 mb-4 text-sm sm:text-base">
             Score {state.score} • Accuracy {state.accuracy}% • Questions {state.total}
@@ -55,7 +55,7 @@ export const QuickMathGame = ({ onBack, themeColor = "#111827" }: themeGame) => 
               Back to Menu
             </Button>
           </div>
-        </div>
+        </section>
       )}
     </div>
   );

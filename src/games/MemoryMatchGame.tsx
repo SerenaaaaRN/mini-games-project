@@ -23,18 +23,18 @@ const MemoryMatch = () => {
 
         {!state.showStartModal && (
           <>
-            <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-4 text-center text-gray-600">
+            <section className="grid grid-cols-3 gap-2 sm:gap-4 mb-4 text-center text-gray-600">
               <StatCard icon={Clock} label="Time" value={formatTime(state.timeElapsed)} />
               <StatCard icon={Target} label="Moves" value={`${state.moves} moves`} />
               <StatCard icon={Trophy} label="Matched" value={`${state.matchedPairs}/${settings.pairs}`} />
-            </div>
+            </section>
 
             <MemoryBoard cards={state.cards} gridCols={settings.gridCols} onCardClick={actions.handleCardClick} />
           </>
         )}
 
         {state.showStartModal && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <main className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full mx-auto">
               <h2 className="text-xl sm:text-2xl font-bold text-center mb-6">Pilih Kesulitan</h2>
               <div className="space-y-3">
@@ -56,7 +56,7 @@ const MemoryMatch = () => {
                 ))}
               </div>
             </div>
-          </div>
+          </main>
         )}
       </div>
     </div>

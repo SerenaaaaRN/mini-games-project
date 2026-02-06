@@ -43,13 +43,13 @@ const SnakeGame = ({ themeColor = "#22c55e" }: themeGame) => {
 
   return (
     <div className=" bg-linear-0-to-br from-green-50 to-emerald-100 flex flex-col items-center justify-center">
-      <div className="max-w-md w-full">
-        <div className="flex items-center justify-between mb-4">
+      <main className="max-w-md w-full">
+        <header className="flex items-center justify-between mb-4">
           <h1 className="text-2xl font-bold text-gray-800">Snake</h1>
           <Button variant="outline" size="sm" onClick={actions.resetGame}>
             <RotateCcw className="w-4 h-4" />
           </Button>
-        </div>
+        </header>
 
         <Card>
           <SnakeCanvas
@@ -60,7 +60,7 @@ const SnakeGame = ({ themeColor = "#22c55e" }: themeGame) => {
           />
         </Card>
 
-        <div className="text-center space-y-4 mt-10">
+        <section className="text-center space-y-4 mt-10">
           <div className="flex justify-center gap-4 text-sm font-semibold text-gray-700">
             <span>Score: {state.score}</span>
             <span>Best: {state.bestScore}</span>
@@ -114,8 +114,8 @@ const SnakeGame = ({ themeColor = "#22c55e" }: themeGame) => {
               </Button>
             </div>
           </div>
-        </div>
-      </div>
+        </section>
+      </main>
     </div>
   );
 };

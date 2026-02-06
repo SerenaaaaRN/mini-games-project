@@ -20,6 +20,7 @@ Dibangun dengan Next.js 16, React 19, dengan UI Shadcn 8 bit retro dengan sediki
 - [x] Quick Math Game
 - [x] Pong
 - [x] Minesweeper
+- [ ] Tetris
 
 ---
 

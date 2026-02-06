@@ -19,7 +19,6 @@ export default function HomePage() {
   return (
     <div className="min-h-screen w-full bg-[#daebc5] dark:bg-[#2d2a2e] text-[#2d2a2e] dark:text-[#fdf6e3] p-8 font-pixel">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <header className="text-center mb-12 space-y-4">
           <Badge variant="outline" className="bg-white text-black mb-2">
             PROJECT BY RILLAH
@@ -30,8 +29,8 @@ export default function HomePage() {
           <p className="text-sm uppercase tracking-wider opacity-75">Select a cartridge to start</p>
         </header>
 
-        {/* Category Filter */}
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+        {/* filter kategori */}
+        <section className="flex flex-wrap justify-center gap-4 mb-12">
           {categories.map((category) => (
             <Button
               key={category}
@@ -42,14 +41,13 @@ export default function HomePage() {
               {category}
             </Button>
           ))}
-        </div>
+        </section>
 
-        {/* Games Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {/* layout grid iterasi game */}
+        <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {filteredGames.map((game) => (
             <Link href={`/games/${game.id}`} key={game.id} className="group block h-full">
               <Card className="h-full hover:-translate-y-1 transition-transform cursor-pointer flex flex-col relative bg-white dark:bg-black">
-              
                 <div className="absolute -top-3 -right-2 z-10">
                   {game.status && (
                     <Badge
@@ -72,7 +70,6 @@ export default function HomePage() {
                   <div>
                     <CardTitle className="text-sm md:text-base mb-2 uppercase leading-tight">{game.title}</CardTitle>
                     <CardDescription className="text-xs line-clamp-2 font-sans opacity-80">
-                     
                       {game.description}
                     </CardDescription>
                   </div>
@@ -86,7 +83,7 @@ export default function HomePage() {
               </Card>
             </Link>
           ))}
-        </div>
+        </section>
       </div>
     </div>
   );

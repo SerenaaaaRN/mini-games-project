@@ -3,12 +3,12 @@
 import { useEffect } from "react";
 import { Button } from "@/components/ui/8bit/button";
 import { Card } from "@/components/ui/8bit/card";
-import { Triangle, Trophy, RotateCcw, ArrowLeft } from "lucide-react";
+import { Triangle, Trophy, RotateCcw } from "lucide-react";
 import { useFlappyTriangle } from "@/hooks/useFlappyTriangle";
 import { FlappyCanvas } from "./molecules/FlappyCanvas";
 import { themeGame } from "@/types";
 
-const FlappyTriangleGame = ({ onBack, themeColor = "#f59e0b" }: themeGame) => {
+const FlappyTriangleGame = ({ themeColor = "#f59e0b" }: themeGame) => {
   const { state, actions, constants } = useFlappyTriangle();
 
   useEffect(() => {
@@ -24,16 +24,16 @@ const FlappyTriangleGame = ({ onBack, themeColor = "#f59e0b" }: themeGame) => {
 
   return (
     <div className="min-h-dvh bg-linear-to-br from-amber-50 to-orange-100 flex flex-col items-center justify-center p-4">
-      <div className="flex items-center justify-between w-full max-w-4xl mb-4">
+      <header className="flex items-center justify-between w-full max-w-4xl mb-4">
         <h1 className="text-2xl font-bold text-gray-800">Flappy Triangle</h1>
         <div className="w-20" />
-      </div>
+      </header>
 
-      <div className="relative w-full max-w-4xl">
+      <main className="relative w-full max-w-4xl">
         <FlappyCanvas {...state} themeColor={themeColor} constants={constants} onCanvasClick={actions.jump} />
 
         {state.gameState === "menu" && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm rounded-xl">
+          <section className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm rounded-xl">
             <Card className="p-8 text-center border-amber-200 shadow-xl max-w-screen">
               <div className="mb-6">
                 <div
@@ -70,11 +70,11 @@ const FlappyTriangleGame = ({ onBack, themeColor = "#f59e0b" }: themeGame) => {
                 </div>
               )}
             </Card>
-          </div>
+          </section>
         )}
 
         {state.gameState === "gameOver" && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm rounded-xl">
+          <section className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm rounded-xl">
             <Card className="p-8 text-center border-amber-200 shadow-xl w-96">
               <h2 className="text-2xl font-bold text-gray-900 mb-2">Game Over!</h2>
               <div className="space-y-4 mb-6">
@@ -112,15 +112,15 @@ const FlappyTriangleGame = ({ onBack, themeColor = "#f59e0b" }: themeGame) => {
                 </Button>
               </div>
             </Card>
-          </div>
+          </section>
         )}
-      </div>
+      </main>
 
-      <div className="mt-6 text-center">
+      <section className="mt-6 text-center">
         <p className="text-sm text-amber-700 font-medium">
           {state.gameState === "playing" ? "Keep flying! Avoid the pipes!" : "Click anywhere or press Space to jump"}
         </p>
-      </div>
+      </section>
     </div>
   );
 };

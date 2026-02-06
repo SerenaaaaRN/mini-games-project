@@ -19,6 +19,7 @@ import FlappyTriangleGame from "@/games/FlappyTriangleGame";
 import { QuickMathGame } from "@/games/QuickMathGame";
 import PongGame from "@/games/PongGame";
 import MinesweeperGame from "@/games/MinesweeperGame";
+import TetrisGame from "@/games/TetrisGame";
 
 const GAME_COMPONENTS: Record<string, any> = {
   "tic-tac-toe": TicTacToeGame,
@@ -30,6 +31,7 @@ const GAME_COMPONENTS: Record<string, any> = {
   "quick-math": QuickMathGame,
   pong: PongGame,
   minesweeper: MinesweeperGame,
+  tetris: TetrisGame,
 };
 
 export default function GamePage({ params }: { params: Promise<{ id: string }> }) {
@@ -53,7 +55,7 @@ export default function GamePage({ params }: { params: Promise<{ id: string }> }
   return (
     <div className="min-h-screen bg-[#fdf6e3] dark:bg-[#2d2a2e] p-4 md:p-8 font-pixel">
       <div className="max-w-6xl mx-auto">
-        {/* Navigation Header */}
+        {/* header navigasi */}
         <header className="mb-8 flex items-center justify-between">
           <Link href="/">
             <Button variant="outline" className="gap-2 bg-white dark:bg-black uppercase text-xs">
@@ -68,16 +70,15 @@ export default function GamePage({ params }: { params: Promise<{ id: string }> }
 
         <div className="grid lg:grid-cols-[1fr_350px] gap-8 items-start">
           <main className="order-2 lg:order-1">
-            {/* Frame Monitor Retro */}
-            <div className="p-1 bg-gray-800 rounded-lg shadow-xl">
+            {/* mointor retro */}
+            <section className="p-1 bg-gray-800 rounded-lg shadow-xl">
               <div className="bg-[#1a1b26] border-4 border-gray-600 rounded-lg p-2 md:p-4">
-                {/* Card Game Area */}
                 <Card
                   id="game-screen"
-                  className="bg-white dark:bg-black min-h-[400px] md:min-h-[600px] flex items-center justify-center relative overflow-hidden shadow-none border-2"
+                  className="bg-white dark:bg-black min-h-100 md:min-h-150 flex items-center justify-center relative overflow-hidden shadow-none border-2"
                   tabIndex={0}
                 >
-                  {/* Render Game Component dengan props yang diperlukan */}
+                  {/* render game components */}
                   <div className="w-full h-full flex flex-col items-center justify-center p-4">
                     <GameComponent themeColor={game.themeColor} />
                   </div>
@@ -91,11 +92,11 @@ export default function GamePage({ params }: { params: Promise<{ id: string }> }
                   <div className="text-[10px] text-gray-500 font-sans">STEREO SOUND</div>
                 </div>
               </div>
-            </div>
+            </section>
           </main>
 
-          {/* Sidebar Info (The Cabinet Panel) */}
-          <div className="order-1 lg:order-2 space-y-6">
+          {/* sidebar info game */}
+          <aside className="order-1 lg:order-2 space-y-6">
             <Card className="bg-white dark:bg-black p-6 space-y-6">
               <header className="border-b-4 border-current pb-4 space-y-2">
                 <Badge variant="outline" className="mb-2 bg-yellow-300 text-black border-black">
@@ -104,16 +105,15 @@ export default function GamePage({ params }: { params: Promise<{ id: string }> }
                 <h1 className="text-2xl md:text-3xl font-bold uppercase leading-tight text-primary">{game.title}</h1>
               </header>
 
-              {/* Description */}
-              <div className="space-y-2">
+              <figure className="space-y-2">
                 <div className="flex items-center gap-2 text-sm font-bold uppercase border-b-2 border-dashed border-gray-300 pb-1 w-fit">
                   <Info className="w-4 h-4" />
                   Mission Brief
                 </div>
                 <p className="text-xs md:text-sm text-muted-foreground leading-relaxed font-sans">{game.description}</p>
-              </div>
+              </figure>
 
-              {/* Controls Hints */}
+              {/* control hint */}
               <div className="space-y-3 bg-gray-100 dark:bg-gray-900 p-4 rounded border-2 border-black/10">
                 <div className="flex items-center gap-2 text-sm font-bold uppercase mb-2">
                   <Gamepad2 className="w-4 h-4" />
@@ -124,7 +124,6 @@ export default function GamePage({ params }: { params: Promise<{ id: string }> }
                 </div>
               </div>
 
-              {/* Start Button Decoration (Visual Only) */}
               <div className="pt-4">
                 <Button
                   onClick={handlePlayFocus}
@@ -134,7 +133,7 @@ export default function GamePage({ params }: { params: Promise<{ id: string }> }
                 </Button>
               </div>
             </Card>
-          </div>
+          </aside>
         </div>
       </div>
     </div>

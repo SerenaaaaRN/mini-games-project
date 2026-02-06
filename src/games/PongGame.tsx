@@ -54,7 +54,7 @@ const PongGame = ({ themeColor = "#3b82f6" }: themeGame) => {
             <Button
               onClick={actions.toggleGame}
               disabled={state.gameOver}
-              className="w-full h-full uppercase font-bold text-base md:text-lg shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:shadow-none transition-all border-2 border-black"
+              className="w-full h-full uppercase font-bold text-base md:text-lg shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:translate-y-0.5 active:shadow-none transition-all border-2 border-black"
               style={{ backgroundColor: state.gameRunning ? "#ef4444" : themeColor }}
             >
               {state.gameRunning ? (

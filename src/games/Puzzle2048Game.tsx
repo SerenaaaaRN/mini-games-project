@@ -37,7 +37,7 @@ export default function Puzzle2048Game({ onBack }: themeGame) {
 
   return (
     <div className="bg-linear-to-br p-4 flex flex-col items-center justify-center">
-      <div className="w-full max-w-sm mx-auto">
+      <main className="w-full max-w-sm mx-auto">
         <header className="flex items-center justify-between mb-4">
           <h1 className="text-xl sm:text-2xl font-bold">2048</h1>
           <Button onClick={actions.reset} variant="outline" size="sm">
@@ -45,22 +45,22 @@ export default function Puzzle2048Game({ onBack }: themeGame) {
           </Button>
         </header>
 
-        <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-4">
+        <section className="grid grid-cols-3 gap-2 sm:gap-4 mb-4">
           <ScoreCard label="Score" value={state.score} />
           <ScoreCard label="Best" value={state.bestScore} />
           <ScoreCard label="Moves" value={state.moveCount} />
-        </div>
+        </section>
 
-        <div className="bg-gray-300 rounded-lg p-2 sm:p-3 mb-4 shadow-lg">
+        <section className="bg-gray-300 rounded-lg p-2 sm:p-3 mb-4 shadow-lg">
           <div className="grid grid-cols-4 gap-2 sm:gap-3">
             {state.board.flat().map((cell, idx) => (
               <Tile key={idx} value={cell} />
             ))}
           </div>
-        </div>
+        </section>
 
         {/* Mobile Controls */}
-        <div className="grid grid-cols-3 grid-rows-2 gap-2 sm:hidden">
+        <section className="grid grid-cols-3 grid-rows-2 gap-2 sm:hidden">
           <div className="col-start-2 row-start-1 flex justify-center">
             <Button onClick={() => actions.move("up")} className="w-16 h-16">
               <ArrowUp />
@@ -81,10 +81,10 @@ export default function Puzzle2048Game({ onBack }: themeGame) {
               <ArrowRight />
             </Button>
           </div>
-        </div>
+        </section>
 
         {(state.gameOver || state.won) && (
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <section className="absolute inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <div className="bg-white rounded-lg p-6 sm:p-8 text-center w-full max-w-sm">
               <h2 className="text-2xl font-bold mb-2">{state.won ? "You Win!" : "Game Over"}</h2>
               <p className="text-gray-600 mb-6">Score: {state.score}</p>
@@ -95,9 +95,9 @@ export default function Puzzle2048Game({ onBack }: themeGame) {
                 </Button>
               </div>
             </div>
-          </div>
+          </section>
         )}
-      </div>
+      </main>
     </div>
   );
 }

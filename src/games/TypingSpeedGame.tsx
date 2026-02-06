@@ -70,7 +70,7 @@ export default function TypingSpeedGame({ onBack, themeColor }: themeGame) {
     return (
       <div className="w-full flex items-center justify-center p-4 ">
         <Card className="w-full max-w-md p-6 bg-white dark:bg-black border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-          <div className="text-center mb-6 md:mb-8">
+          <header className="text-center mb-6 md:mb-8">
             <div
               className="w-12 h-12 md:w-16 md:h-16 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center justify-center mx-auto mb-4"
               style={{ backgroundColor: themeColor }}
@@ -79,9 +79,9 @@ export default function TypingSpeedGame({ onBack, themeColor }: themeGame) {
             </div>
             <h1 className="text-2xl md:text-3xl font-bold uppercase tracking-widest">Typing Speed</h1>
             <p className="text-xs text-gray-500 mt-2 font-mono">Test your WPM (Words Per Minute)</p>
-          </div>
+          </header>
 
-          <div className="space-y-3 md:space-y-4">
+          <main className="space-y-3 md:space-y-4">
             {(Object.keys(difficultySettings) as Difficulty[]).map((diff) => (
               <button
                 key={diff}
@@ -104,7 +104,7 @@ export default function TypingSpeedGame({ onBack, themeColor }: themeGame) {
                 <div className={`absolute left-0 top-0 bottom-0 w-1 ${difficultySettings[diff].color}`} />
               </button>
             ))}
-          </div>
+          </main>
           <Button
             onClick={onBack}
             variant="ghost"
@@ -124,18 +124,17 @@ export default function TypingSpeedGame({ onBack, themeColor }: themeGame) {
       <Card className="w-full max-w-3xl p-4 md:p-8 bg-white dark:bg-black border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] md:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
         {state.gameState === "playing" ? (
           <>
-            {/* Header Stats */}
-            <div className="flex justify-between items-center mb-4 md:mb-6 pb-4 border-b-2 border-dashed border-gray-300">
+            <header className="flex justify-between items-center mb-4 md:mb-6 pb-4 border-b-2 border-dashed border-gray-300">
               <div className="flex items-center gap-2">
-                <div className="p-2 bg-black text-white rounded font-mono text-sm md:text-base font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)]">
+                <figure className="p-2 bg-black text-white rounded font-mono text-sm md:text-base font-bold shadow-[2px_2px_0px_0px_rgba(0,0,0,0.2)]">
                   {state.timeLeft}s
-                </div>
+                </figure>
               </div>
               <div className="text-sm md:text-xl font-bold font-mono">WPM: {calculateWPM()}</div>
-            </div>
+            </header>
 
             {/* Game Area */}
-            <div className="mb-4">
+            <main className="mb-4">
               <WordDisplay words={state.words} currentIndex={state.currentWordIndex} typedWord={state.typedWord} />
 
               <input
@@ -159,24 +158,24 @@ export default function TypingSpeedGame({ onBack, themeColor }: themeGame) {
                 </span>{" "}
                 to submit word
               </div>
-            </div>
+            </main>
           </>
         ) : (
           // --- RESULTS SCREEN ---
-          <div className="text-center py-4 md:py-8 animate-in zoom-in-95">
-            <h2 className="text-2xl md:text-4xl font-bold mb-2 uppercase">Time's Up!</h2>
-            <div className="text-sm text-gray-500 mb-8 font-mono">You typed with fury!</div>
+          <section className="text-center py-4 md:py-8 animate-in zoom-in-95">
+            <h2 className="text-2xl md:text-4xl font-bold mb-2 uppercase">Time&apos;s Up!</h2>
+            <p className="text-sm text-gray-500 mb-8 font-mono">You typed with fury!</p>
 
-            <div className="grid grid-cols-2 gap-3 md:gap-4 mb-8">
+            <section className="grid grid-cols-2 gap-3 md:gap-4 mb-8">
               <div className="p-3 md:p-4 bg-green-50 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
-                <div className="text-xs text-gray-500 uppercase font-bold mb-1">Final WPM</div>
-                <div className="text-2xl md:text-4xl font-bold text-green-600">{calculateWPM()}</div>
+                <p className="text-xs text-gray-500 uppercase font-bold mb-1">Final WPM</p>
+                <span className="text-2xl md:text-4xl font-bold text-green-600">{calculateWPM()}</span>
               </div>
               <div className="p-3 md:p-4 bg-blue-50 border-2 border-black shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
-                <div className="text-xs text-gray-500 uppercase font-bold mb-1">Accuracy</div>
-                <div className="text-2xl md:text-4xl font-bold text-blue-600">
+                <p className="text-xs text-gray-500 uppercase font-bold mb-1">Accuracy</p>
+                <span className="text-2xl md:text-4xl font-bold text-blue-600">
                   {state.totalChars > 0 ? Math.round((state.correctChars / state.totalChars) * 100) : 0}%
-                </div>
+                </span>
               </div>
               <div className="p-2 border-2 border-gray-200 flex flex-col items-center justify-center">
                 <CheckCircle2 className="w-4 h-4 text-green-500 mb-1" />
@@ -186,7 +185,7 @@ export default function TypingSpeedGame({ onBack, themeColor }: themeGame) {
                 <XCircle className="w-4 h-4 text-red-500 mb-1" />
                 <span className="text-xs md:text-sm font-bold">{state.wrongWords} Missed</span>
               </div>
-            </div>
+            </section>
 
             <Button
               onClick={() => setDifficulty(null)}
@@ -194,7 +193,7 @@ export default function TypingSpeedGame({ onBack, themeColor }: themeGame) {
             >
               Play Again
             </Button>
-          </div>
+          </section>
         )}
       </Card>
     </div>

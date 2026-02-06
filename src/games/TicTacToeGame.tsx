@@ -36,7 +36,7 @@ export default function TicTacToeGame({ themeColor }: TicTacToeGameProps) {
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full">
-      <div className="relative">
+      <main className="relative">
         <TicTacToeCanvas
           gameState={gameState}
           currentPlayer={currentPlayer}
@@ -51,7 +51,7 @@ export default function TicTacToeGame({ themeColor }: TicTacToeGameProps) {
 
         {/* --- MENU SCREEN (Retro Style) --- */}
         {gameState === "menu" && (
-          <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/40 backdrop-blur-[2px]">
+          <section className="absolute inset-0 flex items-center justify-center z-10 bg-black/40 backdrop-blur-[2px]">
             <Card className="p-8 text-center w-80 bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
               <div
                 className="w-12 h-12 mx-auto mb-4 border-2 border-black flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
@@ -84,12 +84,12 @@ export default function TicTacToeGame({ themeColor }: TicTacToeGameProps) {
                 </Button>
               </div>
             </Card>
-          </div>
+          </section>
         )}
 
         {/* --- GAME OVER SCREEN (Retro Style) --- */}
         {gameState === "gameOver" && (
-          <div className="absolute inset-0 flex items-center justify-center z-10 bg-black/50 backdrop-blur-[2px]">
+          <section className="absolute inset-0 flex items-center justify-center z-10 bg-black/50 backdrop-blur-[2px]">
             <Card className="p-6 text-center w-80 bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] animate-in zoom-in-95 duration-200">
               <div className="flex justify-center mb-4">
                 <Trophy className="w-10 h-10 text-yellow-500 drop-shadow-md animate-bounce" />
@@ -109,7 +109,7 @@ export default function TicTacToeGame({ themeColor }: TicTacToeGameProps) {
               </h3>
 
               {/* Scoreboard Mini */}
-              <div className="grid grid-cols-3 gap-2 text-xs mb-6 font-mono border-y-2 border-black py-2 bg-gray-100">
+              <aside className="grid grid-cols-3 gap-2 text-xs mb-6 font-mono border-y-2 border-black py-2 bg-gray-100">
                 <div className="flex flex-col">
                   <span className="font-bold">P1</span>
                   <span style={{ color: themeColor }}>{scores.X}</span>
@@ -122,9 +122,9 @@ export default function TicTacToeGame({ themeColor }: TicTacToeGameProps) {
                   <span className="font-bold">P2/AI</span>
                   <span>{scores.O}</span>
                 </div>
-              </div>
+              </aside>
 
-              <div className="flex flex-col gap-3">
+              <aside className="flex flex-col gap-3">
                 <Button onClick={resetGame} size="sm" className="w-full uppercase text-xs">
                   Play Again
                 </Button>
@@ -136,11 +136,11 @@ export default function TicTacToeGame({ themeColor }: TicTacToeGameProps) {
                 >
                   <RotateCcw className="w-3 h-3 mr-1" /> Back to Menu
                 </Button>
-              </div>
+              </aside>
             </Card>
-          </div>
+          </section>
         )}
-      </div>
+      </main>
     </div>
   );
 }

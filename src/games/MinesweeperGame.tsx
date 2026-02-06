@@ -13,16 +13,16 @@ const MinesweeperGame = () => {
 
   return (
     <div className=" flex flex-col items-center justify-center">
-      <div className="w-full max-w-md mx-auto">
+      <main className="w-full max-w-md mx-auto">
         {!showStartModal && (
           <>
-            <div className="flex items-center justify-between mb-4">
+            <header className="flex items-center justify-between mb-4">
               <h1 className="text-lg sm:text-xl font-bold text-gray-800 text-center">Minesweeper</h1>
               <Button onClick={() => actions.setShowStartModal(true)} variant="ghost" size="sm">
                 <RotateCcw className="w-4 h-4 mr-1 sm:mr-2" />
                 <span className="hidden sm:inline">New Game</span>
               </Button>
-            </div>
+            </header>
 
             <Card className="p-2 sm:p-4 mb-4">
               <div className="flex justify-between items-center mb-4 bg-muted p-2 rounded-md">
@@ -47,7 +47,7 @@ const MinesweeperGame = () => {
         )}
 
         {showStartModal && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <section className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <Card className="p-6 sm:p-8 text-center w-full max-w-sm">
               <h2 className="text-xl sm:text-2xl font-bold mb-4">Minesweeper</h2>
               <p className="text-gray-600 mb-6 text-sm ">Select a difficulty to start.</p>
@@ -74,11 +74,11 @@ const MinesweeperGame = () => {
                 </ul>
               </div>
             </Card>
-          </div>
+          </section>
         )}
 
         {showEndModal && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <section className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
             <Card className="p-6 sm:p-8 text-center w-full max-w-sm">
               <h2 className="text-xl sm:text-2xl font-bold mb-2">
                 {gameStatus === "won" ? "You Win! 🎉" : "Game Over 💥"}
@@ -91,9 +91,9 @@ const MinesweeperGame = () => {
                 </Button>
               </div>
             </Card>
-          </div>
+          </section>
         )}
-      </div>
+      </main>
     </div>
   );
 };

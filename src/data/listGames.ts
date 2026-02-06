@@ -92,4 +92,14 @@ export const games: gamesProp[] = [
     category: "Strategy",
     status: "ready",
   },
+  {
+    id: "tetris",
+    title: "Tetris",
+    description: "Stack falling blocks to clear lines and score high.",
+    icon: Grid3X3,
+    color: "bg-purple-500",
+    themeColor: "#a855f7",
+    category: "Puzzle",
+    status: "ready",
+  },
 ];
